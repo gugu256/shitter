@@ -4,25 +4,21 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/x-icon" href="https://i.redd.it/n0qw1pjak8ya1.png
-    ">
-  <title>Shitter</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Roboto:wght@500&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="https://i.imgur.com/AA88QLM.png">
+  <title>Shitter - 12450860</title>
+ 
 </head>
 <style>
-  :root{
-    --background: #ffffff;
-  }
-  
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+
+   
+
 * {
     font-family: Roboto;
-
 }
 
 body {
-  background-image: "bgs/0.png";
+  background-color: white;
 }
   
 header {
@@ -47,20 +43,23 @@ textarea {
     border-radius: 5px;
     border: 2px solid black;
 }
-
-#post {
-  font-size: 20px;
-  border: 2px solid #BCB1AE;
-  border-radius: 5px;
-  margin-top: 70px;
-  margin-right: 70px;
-  margin-bottom: 30px;
-  margin-left: 70px;
-  padding: 30px;
+  
+#posts {
+    border-left:  3px solid black;
+    border-right:  none;
+    border-top:  3px solid black;
+    border-bottom: 3px solid white;
+    text-align: center;
+    border-radius: 10px;
+    width: 600px;
 }
 
-#postdate {
-    font-size: 12px;
+#post {
+    border: 2px solid black;
+    border-radius: 10px;
+    border-bottom: none;
+    border-left: none;
+    border-right: 3px solid black;
 }
 
 #site {
@@ -68,13 +67,11 @@ textarea {
 }
 * {
     font-family: 'Roboto Mono', monospace;
-    color: var(--colortext);
+    color: black;
 }
 
   
-a:link, a:visited, a:hover, a:active{
-text-decoration: none;
-}
+
 
 button {
   background: #fff;
@@ -99,7 +96,6 @@ button {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  color: var(--colortext)
 }
 
 input {
@@ -171,7 +167,6 @@ button:not(:disabled):active {
   transform: translateY(.125rem);
 }
 #buttonPost {background: #fff;
-  color: black;
   backface-visibility: hidden;
   border-radius: .375rem;
   border-style: solid;
@@ -277,7 +272,27 @@ button:not(:disabled):active {
 #buttonPost2:not(:disabled):active {
   transform: translateY(.125rem);
 }
- 
+
+#postdetail {
+  font-size: 30px;
+  border: 2px solid #BCB1AE;
+  border-radius: 5px;
+  margin: 70px;
+  padding: 30px;
+}
+
+#content {
+  font-size: 30px;
+  border: 2px solid #BCB1AE;
+  border-radius: 5px;
+  margin-top: 70px;
+  margin-right: 70px;
+  margin-bottom: 30px;
+  margin-left: 70px;
+  padding: 30px;
+}
+
+
 
    </style>
 
@@ -285,60 +300,30 @@ button:not(:disabled):active {
   ">  
 <body>
 
-<p><button><a  href="https://shitter.ch"><img class="homelogo" src="https://i.redd.it/n0qw1pjak8ya1.png">
-<style>
-   .homelogo{
-    width: 60px;
-  }
-</style>
-</img></a></button>
+<p><a  href="/"><img class="homelogo" src="https://i.imgur.com/LLbB4Sd.png"></img></a>
 
 <!-- <button onClick="location.href='/'" id="buttonPost">Shitter</button>-->
-      <button id="buttonPost" onClick="location.href='/gotomakepost'" type="button">Post <img src="https://i.redd.it/exv6gqxem8ya1.png" height="20" width="20"></button>
-  <button  class="darkmode"style="margin: 10px 50px 20px 0;"><img src="https://i.redd.it/zs6h54xvl8ya1.png" height=20 widht=20></button> 
-</p>
-</nav>
-</div>
-
-  
-<center>
+<button id="buttonPost" onClick="location.href='shitter.ch'" type="button">Home</button></p>
+      <button id="buttonPost" onClick="location.href='/gotomakepost'" type="button"> Post ✏️</button></p>
 <hr />
-<h1>Shitter</h1>
-<div id="formbox" style="
-  width: 700px;
-  border: 3px dashed;
-  color: var(--formbox);
-  border-radius: 10px;
-  ">
+<center>
+ <h1>Post 12450860</h1>
+ <hr />
+ <br />
+ <div id="postdetail"></div>
+ <h3><u>shitter team</u></h3><br />
+ <p style="font-size: 30px;
+  border: 2px solid #BCB1AE;
+  border-radius: 5px;
+  margin-top: 30px;
+  margin-right: 70px;
+  margin-bottom: 30px;
+  margin-left: 70px;
+  padding: 30px;">
+   truc
+ </p>
   <br>
-
-{{POSTS}}
-  <br>
-</div> 
- </div> 
 </center>
 
- <script>
-    const switchThemeBtn = document.querySelector('.darkmode')
-      let toggleTheme = 0
-
-      
-
-        if(toggleTheme === 0) {
-          document.documentElement.style.setProperty('--background', '#151515');
-          document.documentElement.style.setProperty('--formbox', 'white');
-          document.documentElement.style.setProperty('--colortext', 'white') 
-          toggleTheme++;
-        } else {
-          document.documentElement.style.setProperty('--background', 'white');
-          document.documentElement.style.setProperty('--formbox', 'dark')
-          document.documentElement.style.setProperty('--colortext', 'dark') 
-        
-          toggleTheme--;
-        }
-      })
-
-
-    </script>
 </body>
 </html>

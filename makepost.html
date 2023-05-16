@@ -1,28 +1,24 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/x-icon" href="https://i.redd.it/n0qw1pjak8ya1.png
-    ">
+  <link rel="icon" type="image/x-icon" href="https://i.imgur.com/AA88QLM.png">
   <title>Shitter</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Roboto:wght@500&display=swap" rel="stylesheet">
 </head>
 <style>
   :root{
-    --background: #ffffff;
+    background-color: white;
   }
-  
 * {
     font-family: Roboto;
-
 }
 
 body {
-  background-image: "bgs/0.png";
+  
 }
   
 header {
@@ -59,16 +55,12 @@ textarea {
   padding: 30px;
 }
 
-#postdate {
-    font-size: 12px;
-}
-
 #site {
     width: 600px;
 }
 * {
     font-family: 'Roboto Mono', monospace;
-    color: var(--colortext);
+    color: black;
 }
 
   
@@ -99,7 +91,6 @@ button {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  color: var(--colortext)
 }
 
 input {
@@ -171,7 +162,6 @@ button:not(:disabled):active {
   transform: translateY(.125rem);
 }
 #buttonPost {background: #fff;
-  color: black;
   backface-visibility: hidden;
   border-radius: .375rem;
   border-style: solid;
@@ -277,7 +267,6 @@ button:not(:disabled):active {
 #buttonPost2:not(:disabled):active {
   transform: translateY(.125rem);
 }
- 
 
    </style>
 
@@ -285,60 +274,34 @@ button:not(:disabled):active {
   ">  
 <body>
 
+<p><nav>
 <p><button><a  href="https://shitter.ch"><img class="homelogo" src="https://i.redd.it/n0qw1pjak8ya1.png">
 <style>
    .homelogo{
     width: 60px;
   }
 </style>
-</img></a></button>
+</img></a></button></a>
 
-<!-- <button onClick="location.href='/'" id="buttonPost">Shitter</button>-->
-      <button id="buttonPost" onClick="location.href='/gotomakepost'" type="button">Post <img src="https://i.redd.it/exv6gqxem8ya1.png" height="20" width="20"></button>
-  <button  class="darkmode"style="margin: 10px 50px 20px 0;"><img src="https://i.redd.it/zs6h54xvl8ya1.png" height=20 widht=20></button> 
-</p>
+<button onClick="location.href='/'" id="buttonPost">Home</button>
 </nav>
 </div>
-
-  
-<center>
 <hr />
-<h1>Shitter</h1>
-<div id="formbox" style="
-  width: 700px;
-  border: 3px dashed;
-  color: var(--formbox);
-  border-radius: 10px;
-  ">
+<center>
+
+  <br>
+<form action="/newpost" method="post">
+  <textarea name="content" placeholder="Your text" rows="10" cols="59"></textarea><br />
+    <br /><br />
+  <input type="text" name="pseudo" placeholder="Pseudo">
+    <br />
+    <br />
+  <input id="buttonPost" type="submit" value="POST">
+</form>
+
   <br>
 
-{{POSTS}}
-  <br>
-</div> 
- </div> 
+
 </center>
-
- <script>
-    const switchThemeBtn = document.querySelector('.darkmode')
-      let toggleTheme = 0
-
-      
-
-        if(toggleTheme === 0) {
-          document.documentElement.style.setProperty('--background', '#151515');
-          document.documentElement.style.setProperty('--formbox', 'white');
-          document.documentElement.style.setProperty('--colortext', 'white') 
-          toggleTheme++;
-        } else {
-          document.documentElement.style.setProperty('--background', 'white');
-          document.documentElement.style.setProperty('--formbox', 'dark')
-          document.documentElement.style.setProperty('--colortext', 'dark') 
-        
-          toggleTheme--;
-        }
-      })
-
-
-    </script>
 </body>
 </html>
