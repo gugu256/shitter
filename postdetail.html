@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/x-icon" href="https://i.imgur.com/AA88QLM.png">
-  <title>Shitter - 30971760</title>
+  <title>Shitter - {postid}</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Roboto:wght@500&display=swap" rel="stylesheet">
 </head>
@@ -328,15 +328,15 @@ button:not(:disabled):active {
    {content}
  </p>
  <!-- The text field -->
-<input type="text" value="https://shitter.ch/post/{link}" id="myInput">
+<input readonly='readonly' type="text" value="https://shitter.ch/post/{postid}" id="myInput">
 
 <!-- The button used to copy the text -->
-<button onclick="copyToClipBoard()">Share link</button>
+<button onclick="copyToClipBoard()">📎</button>
 
 <script>
     function copyToClipBoard() {
 
-    var content = document.getElementById('myInput');
+    var content = document.getElementById("myInput")
     
     content.select();
     document.execCommand('copy');

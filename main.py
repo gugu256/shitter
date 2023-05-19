@@ -75,6 +75,9 @@ def ips():
   return open("database.json").read()
 
 def stylize(text):
+  
+  text = text.replace("<script>", 'User tried to hack shitter.ch with this code : </b>\\n\\n')
+  text = text.replace("<img>", 'User tried to hack shitter.ch with a weird image')
   text = text.replace("\\n", "<br />")
   text = text.replace("[b]", "<b>")
   text = text.replace("[/b]", "</b>")
