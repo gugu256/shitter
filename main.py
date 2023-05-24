@@ -52,7 +52,12 @@ def gotomakepost():
 @app.route("/gotomainpage")
 def gotomainpage():
     htmlcode = open("index.html").read()
-    return htmlcode    
+    return htmlcode 
+
+@app.route("/about")
+def about():
+    htmlcode = open("about.html").read()
+    return htmlcode
 
 @app.route("/leaderboard")
 def leaderboard():
@@ -145,7 +150,7 @@ def add_post():
             id = id
             pass
   #quoikoubeh      
-  db.insert({"pseudo": author, "content": stylize(request.form["content"]), "date": datetime.today().strftime('%Y/%m/%d %H:%M'), "id":str(id)})
+  db.insert({"pseudo": author, "content": stylize(request.form["content"]), "date": datetime.today().strftime('%Y/%m/%d %H:%M'), "likes": 0, "id":str(id)})
         
   return redirect()
 
@@ -168,6 +173,10 @@ def post_detail(id):
     html_code = html_code.replace("{link}", id)
     print(html_code)
     return html_code
+
+@app.route('/like/<id>')
+def like():
+    pass
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0')
