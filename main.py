@@ -34,6 +34,10 @@ def return_website():
 def redirect():
   return '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=\'https://shitter.ch/\'" /></head><body></body></html>'
 
+def redirect_to_post(id):
+    return '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=\'https://shitter.ch/post/' + id + '\'" /></head><body></body></html>'
+
+
 @app.route("/404")
 def error404():
     htmlcode = open("404.html").read()
@@ -199,10 +203,11 @@ def like(id):
     Post = Query()
     result = db.search(Post.id == id)
     likes = result[0]["likes"]
-    nouveau_nombre_likes = likes + 1
+    nouveau_nombre_likes = likes + 1 
     db.update({'likes': nouveau_nombre_likes}, Post.id == id)
-    html_code = post_detail(id)
-    return html_code
+    """html_code = post_detail(id)
+    return html_code"""
+    return redirect_to_post(id)
     
 
 if __name__ == '__main__':
