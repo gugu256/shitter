@@ -211,18 +211,15 @@ def add_post():
             pass
         else:
             break
-    # quoicoubeh
     print("test 1 passed")
+    canPost = True
     blacklist = open("blacklist.txt").read()
     blacklist = blacklist.splitlines()
     for word in blacklist:
         if word in request.form["content"].lower():
             canPost = False
-            print("test 2.1 passed")
         else:
             pass
-            print("test 2.2 passed")
-            canPost = True
     if canPost:
         print("text 3 passed")
         db.insert(

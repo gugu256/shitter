@@ -349,10 +349,11 @@ button:not(:disabled):active {
  <script>
     const switchThemeBtn = document.querySelector('.darkmode')
       let toggleTheme = 0
+      
 
       
       switchThemeBtn.addEventListener('click', () => {
-
+        console.log(toggleTheme)
         if(toggleTheme === 0) {
           document.documentElement.style.setProperty('--background', '#04070C');
           document.documentElement.style.setProperty('--formbox', 'white');
