@@ -17,7 +17,14 @@
     
   }
 
-  .grille{
+.name{
+
+  font-size: 20px;
+} 
+.pdp{
+}
+.grille{
+   
     max-width: 1300px;
     width: 80%;
     height: auto;
@@ -26,14 +33,17 @@
     display: grid;
     justify-content: center;
     grid-template-columns: repeat(auto-fill, 300px);
+  border: none;
     grid-gap: 10px;
 }
-
 .grid-item{
-    width: 300px;
-    height: 200px;
-    background: #333;
-
+  box-shadow: 4px 5px 5px 3px rgba(0, 0, 0, 0.25);
+  width: 234px;
+  height: 361px;
+ border-style: solid;
+}
+.role{
+  font-size: 16px;
 }
   
 * {
@@ -318,44 +328,19 @@ button:not(:disabled):active {
 
     <!-- <button onClick="location.href='/'" id="buttonPost">Shitter</button>-->
           <button id="buttonPost" onClick="location.href='/gotomakepost'"   type="button">Post <img src="https://i.redd.it/exv6gqxem8ya1.png" height="20" width="20"></button>
-      <button  class="darkmode"style="margin: 10px 50px 20px 0;"><img src="https://i.redd.it/zs6h54xvl8ya1.png" height=20 widht=20></button>
+      
     </p>
 </nav>
 </div>
 
-  
 <center>
-<hr />
-<h1>Shitter</h1>
-     <div class="grille"> 
-        <div class="grid-item"></div>
-        <div class="grid-item"><img class="lien" src="New Piskel-2.png.png" alt=""></div>
-        <div class="grid-item"></div>
-        <div class="grid-item"></div>
-        <div class="grid-item"></div>
-    </div>
-<script>
-    const switchThemeBtn = document.querySelector('.darkmode')
-      let toggleTheme = 0
-
-      
-      switchThemeBtn.addEventListener('click', () => {
-
-        if(toggleTheme === 0) {
-          document.documentElement.style.setProperty('--background', '#04070C');
-          document.documentElement.style.setProperty('--formbox', 'white');
-          document.documentElement.style.setProperty('--colortext', '#5FFC02') 
-          toggleTheme++;
-        } else {
-          document.documentElement.style.setProperty('--background', 'white');
-          document.documentElement.style.setProperty('--formbox', 'dark')
-          document.documentElement.style.setProperty('--colortext', 'dark') 
-        
-          toggleTheme--;
-        }
-      })
-
-
-    </script>
- </div> 
+  <hr />
+  <h1>Shitter</h1>
+    <center>
+       <div class="grille"> 
+          <div class="grid-item"><br><img class="pdp" src="https://previews.dropbox.com/p/thumb/AB7CMnLiV7XdwSDdXeg4x321kiuIL3FUB4sj9ExaVRqUUVA4oaozFkpX99w4H6sLBYZCIswGJuatbqTVA6-CDxkdGzHsMcMPFqCTJlk2i9l_PzV3E_1YZ3aUZsgXXv-QW_X9XDyvnGG2fpCTGuqVI5Zb884N65dwoKI6dy5Rl47nngku1-_-gCqs3j-DmrK3-CrwumN3ZvNL-oHDePeqZwDB_-wC3K-s0jFQftzfQLSkES6PcM-o18xhvswwSXp3EtNlestfc6dMvmUHQe-RRNeWQZkbFxXA90Ru4eLQO2lECF71io5kSlHrS0AwfKesmcM9Ah3rGTjq4lN2LPPjGvl3V0Z84sbbZbNekJKWQPD4ZI94aXih-FGWxZh0XVVGsjU/p.png"><h1 class="name">rapha1004</h1><h2 class="role">designer and front-end developer</h2></div>
+         
+      </div>
+    </center>
 </center>
+ </div> 

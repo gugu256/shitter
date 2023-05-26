@@ -25,7 +25,7 @@ def return_website():
   for post in range(0, len(posts)):
     try:
 
-      postscode += '<a href="https://shitter.ch/post/'+ posts[post]["id"] +'"> <li style="font-size: 20px; border: 2px solid #BCB1AE; border-radius: 5px; margin-top: 70px; margin-right: 70px; margin-bottom: 10px; margin-left: 70px;;padding: 30px;"><u>' + posts[post]["pseudo"] + "<br /><br /></u>" + posts[post]["content"] + "<br /><p style='font-size: 12; font-color: grey;'> <span id='postdate' style='font-size: 8'>" + posts[post]["date"] +"</span>" + "</p></li></a>" 
+      postscode += '<a href="https://shitter.ch/post/'+ posts[post]["id"] +'"> <li style="font-size: 20px; border: 2px solid #BCB1AE; border-radius: 5px; margin-top: 70px; margin-right: 70px; margin-bottom: 10px; margin-left: 70px; padding: 30px; overflow: hidden;"><u>' + posts[post]["pseudo"] + "<br /><br /></u>" + posts[post]["content"] + "<br /><br />❤️" + str(posts[post]["likes"]) + "<br /><p style='font-size: 12; font-color: grey;'> <span id='postdate' style='font-size: 8'>" + posts[post]["date"] +"</span></a></p></li>" 
     except KeyError:
       postscode += "<li style="">" + posts[post]["content"] + "</li><br />" 
   htmlcode = htmlcode.replace("{{POSTS}}", postscode)
@@ -125,33 +125,52 @@ def stylize(text):
 
 @app.route("/newpost/", methods=["POST"])
 def add_post():
-  
+  canPost = False
   author = request.form["pseudo"]
   if author == "":
     author = "Anonymous"
   else:
     pass
-  id = random.randint(1,99999999)
-  if len(str(id)) == 1:
-            id = "0000000" + str(id)
-  if len(str(id)) == 2:
-            id = "000000" + str(id)
-  if len(str(id)) == 3:
-            id = "00000" + str(id)
-  if len(str(id)) == 4:
-            id = "0000" + str(id)
-  if len(str(id)) == 5:
-            id = "000" + str(id)
-  if len(str(id)) == 6:
-            id = "00" + str(id)
-  if len(str(id)) == 7:
-            id = "00" + str(id)
+  while True:
+      id = random.randint(1,99999999)
+      if len(str(id)) == 1:
+                id = "0000000" + str(id)
+      if len(str(id)) == 2:
+                id = "000000" + str(id)
+      if len(str(id)) == 3:
+                id = "00000" + str(id)
+      if len(str(id)) == 4:
+                id = "0000" + str(id)
+      if len(str(id)) == 5:
+                id = "000" + str(id)
+      if len(str(id)) == 6:
+                id = "00" + str(id)
+      if len(str(id)) == 7:
+                id = "00" + str(id)
+      else:
+                id = id
+                pass
+      if str(id) in open("database.json").read():
+          pass
+      else:
+          break
+  #quoicoubeh
+  print("test 1 passed")
+  blacklist = open("blacklist.txt").read()
+  blacklist = blacklist.splitlines()
+  for word in blacklist:
+      if word in request.form["content"].lower():
+          canPost = False
+          print("test 2.1 passed")
+      else:
+          pass
+          print("test 2.2 passed")
+          canPost = True
+  if canPost:
+    print("text 3 passed")
+    db.insert({"pseudo": author, "content": stylize(request.form["content"]), "date": datetime.today().strftime('%Y/%m/%d %H:%M'), "likes": 0, "id":str(id)})
   else:
-            id = id
-            pass
-  #quoikoubeh      
-  db.insert({"pseudo": author, "content": stylize(request.form["content"]), "date": datetime.today().strftime('%Y/%m/%d %H:%M'), "likes": 0, "id":str(id)})
-        
+      pass
   return redirect()
 
 @app.route("/post/<id>")
@@ -171,12 +190,20 @@ def post_detail(id):
     html_code = html_code.replace("{author}", pseudo)
     html_code = html_code.replace("{content}", content)
     html_code = html_code.replace("{link}", id)
+    html_code = html_code.replace("{likes}", str(result[0]['likes']))
     print(html_code)
     return html_code
 
 @app.route('/like/<id>')
-def like():
-    pass
+def like(id):
+    Post = Query()
+    result = db.search(Post.id == id)
+    likes = result[0]["likes"]
+    nouveau_nombre_likes = likes + 1
+    db.update({'likes': nouveau_nombre_likes}, Post.id == id)
+    html_code = post_detail(id)
+    return html_code
+    
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0')
