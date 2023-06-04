@@ -30,9 +30,9 @@ def return_website():
             postscode += (
                 '<a href="https://shitter.ch/post/'
                 + posts[post]["id"]
-                + '"> <li style="font-size: 20px; border: 2px solid #BCB1AE; border-radius: 5px; margin-top: 70px; margin-right: 70px; margin-bottom: 10px; margin-left: 70px; padding: 30px; overflow: hidden;"><u>'
-                + posts[post]["pseudo"]
-                + "<br /><br /></u>"
+                + '"> <li style="font-size: 20px; border: 2px solid #BCB1AE; border-radius: 5px; margin-top: 70px; margin-right: 70px; margin-bottom: 10px; margin-left: 70px; padding: 30px; overflow: hidden;"><b>'
+                + '<span style="color: #623700; text-decoration-color: #623700; text-decoration: underline;">' + posts[post]["pseudo"] + '</span></b>'
+                + "<br /><br />"
                 + posts[post]["content"]
                 + "<br /><br />❤️"
                 + str(posts[post]["likes"])

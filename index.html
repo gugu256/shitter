@@ -20,9 +20,10 @@
     --background: #ffffff;
     
   }
-  
+
+
 * {
-    font-family: 'Roboto Mono',monospace;
+    fonfixedily: 'Roboto Mono',monospace;
 
 }
 
@@ -298,14 +299,22 @@ button:not(:disabled):active {
 #buttonPost2:not(:disabled):active {
   transform: translateY(.125rem);
 }
+
+nav {
+    position: fixed;
+}
  
 
+#la-navigation{
+  position: fixed;
+}
    </style>
 
 <div style="
   ">  
 <body>
 <div id='up'></div>
+<nav id="la-navigation">
 <p><button><a  href="https://shitter.ch"><img class="homelogo" src="https://i.redd.it/n0qw1pjak8ya1.png">
 <style>
    .homelogo{
@@ -357,13 +366,14 @@ button:not(:disabled):active {
         if(toggleTheme === 0) {
           document.documentElement.style.setProperty('--background', '#04070C');
           document.documentElement.style.setProperty('--formbox', 'white');
-          document.documentElement.style.setProperty('--colortext', '#5FFC02') 
+          document.documentElement.style.setProperty('--colortext', '#5FFC02')
+          document.body.style.backgroundImage = "url('https://preview.redd.it/gxuodn2k2u3b1.png?width=1080&format=png&auto=webp&v=enabled&s=ff9c741aba88725582541cca45f1ab1edd2822bc')"
           toggleTheme++;
         } else {
           document.documentElement.style.setProperty('--background', 'white');
           document.documentElement.style.setProperty('--formbox', 'dark')
-          document.documentElement.style.setProperty('--colortext', 'dark') 
-        
+          document.documentElement.style.setProperty('--colortext', 'dark')
+          document.body.style.backgroundImage = "url('')";
           toggleTheme--;
         }
       })
