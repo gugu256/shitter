@@ -30,6 +30,23 @@ def return_website():
             postscode += (
                 '<a href="https://shitter.ch/post/'
                 + posts[post]["id"]
+                + '"> '
+                + '<p style="font-size: 20px; border: 2px solid #BCB1AE; border-radius: 5px; margin-top: 70px; margin-right: 70px; margin-bottom: 10px; margin-left: 70px; padding: 30px; overflow: hidden;"><b>' 
+                + '<img src="' + posts[post]["profile_picture"] + '" class="pp"><br/>'
+                + '<span style="color: #623700; text-decoration-color: #623700; text-decoration: underline;" id="lepseudoenelsuroestedeespana">' 
+                + posts[post]["pseudo"] + '</span></b>'
+                + "<br /><br />"
+                + posts[post]["content"]
+                + "<br /><br />❤️"
+                + str(posts[post]["likes"])
+                + "<br /><p style='font-size: 12; font-color: grey;'> <span id='postdate' style='font-size: 8'>"
+                + posts[post]["date"]
+                + "</span></a></p></p>"
+            )
+        except KeyError:
+            postscode += (
+                '<a href="https://shitter.ch/post/'
+                + posts[post]["id"]
                 + '"> <li style="font-size: 20px; border: 2px solid #BCB1AE; border-radius: 5px; margin-top: 70px; margin-right: 70px; margin-bottom: 10px; margin-left: 70px; padding: 30px; overflow: hidden;"><b>'
                 + '<span style="color: #623700; text-decoration-color: #623700; text-decoration: underline;">' + posts[post]["pseudo"] + '</span></b>'
                 + "<br /><br />"
@@ -40,8 +57,6 @@ def return_website():
                 + posts[post]["date"]
                 + "</span></a></p></li>"
             )
-        except KeyError:
-            postscode += "<li style=" ">" + posts[post]["content"] + "</li><br />"
     htmlcode = htmlcode.replace("{{POSTS}}", postscode)
     return htmlcode
 
@@ -228,6 +243,7 @@ def add_post():
                 "content": stylize(request.form["content"]),
                 "date": datetime.today().strftime("%Y/%m/%d %H:%M"),
                 "likes": 0,
+                "profile_picture": "https://api.dicebear.com/6.x/thumbs/png?seed=" + author,
                 "id": str(id),
             }
         )
@@ -257,6 +273,9 @@ def post_detail(id):
     print(html_code)
     return html_code
 
+@app.route("/replypage/<id>")
+def replypage(id):
+    pass
 
 @app.route("/like/<id>")
 def like(id):

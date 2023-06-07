@@ -23,11 +23,14 @@
 
 
 * {
-    fonfixedily: 'Roboto Mono',monospace;
+    fonfixedily: Papyrus,'Roboto Mono',monospace;
 
 }
 
- 
+.pp {
+    border-radius: 10px;
+    width: 75px;
+}
   
 body {
   background-image: "bgs/0.png";
@@ -300,14 +303,10 @@ button:not(:disabled):active {
   transform: translateY(.125rem);
 }
 
-nav {
-    position: fixed;
+#la-navigation {
+    position: relative;
 }
- 
 
-#la-navigation{
-  position: fixed;
-}
    </style>
 
 <div style="
@@ -366,8 +365,8 @@ nav {
         if(toggleTheme === 0) {
           document.documentElement.style.setProperty('--background', '#04070C');
           document.documentElement.style.setProperty('--formbox', 'white');
-          document.documentElement.style.setProperty('--colortext', '#5FFC02')
-          document.body.style.backgroundImage = "url('https://preview.redd.it/gxuodn2k2u3b1.png?width=1080&format=png&auto=webp&v=enabled&s=ff9c741aba88725582541cca45f1ab1edd2822bc')"
+          document.documentElement.style.setProperty('--colortext', '#5FFC02');
+         
           toggleTheme++;
         } else {
           document.documentElement.style.setProperty('--background', 'white');
