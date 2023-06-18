@@ -270,12 +270,19 @@ def post_detail(id):
     html_code = html_code.replace("{content}", content)
     html_code = html_code.replace("{link}", id)
     html_code = html_code.replace("{likes}", str(result[0]["likes"]))
+    html_code = html_code.replace("{profile_picture}", '<img src="' + str(result[0]["profile_picture"]) + '" class="pp"')
     print(html_code)
     return html_code
 
 @app.route("/replypage/<id>")
 def replypage(id):
-    pass
+    html_code = open("replypage.html").read()
+    Post = Query()
+    result = db.search(Post.id == id)
+
+    html_code = html_code.replace("{canard}", result[0]["pseudo"])
+    html_code = html_code.replace("{postid}", id)
+    return html_code
 
 @app.route("/like/<id>")
 def like(id):
