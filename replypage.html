@@ -286,8 +286,8 @@ button:not(:disabled):active {
   </div>
   <hr />
   <center>
-ds    <br>
-  <form action="/newpost" method="post">
+Replying to <a href="https://shitter.ch/post/{id}" target="_blank"> @{USER}</a><br /><br />
+  <form action="/reply/{id}" method="post">
     <textarea name="content" placeholder="Your text" rows="10" cols="59"></textarea><br />
       <br /><br />
     <input type="text" name="pseudo" placeholder="Pseudo">

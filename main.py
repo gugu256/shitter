@@ -25,38 +25,82 @@ def return_website():
     postscode = ""
     htmlcode = open("index.html").read()
     for post in range(0, len(posts)):
-        try:
 
+        post_content = posts[post]["content"]
+        final_content = ""
+        count = 0
+        for char in post_content:
+            final_content += char
+            count += 1
+            if count % 42 == 0:
+                final_content += ""
+
+        if len(final_content) >= 336:
+            final_content = final_content[0:335] + "... <u>READ MORE</u>"
+        else:
+            pass
+
+        #if len(posts[post]["content"]) >
+        if posts[post]["isReply"] is True:
+            Post = Query()
+            result = db.search(Post.id == posts[post]["repliedID"])
+            
             postscode += (
-                '<a href="https://shitter.ch/post/'
-                + posts[post]["id"]
-                + '"> '
-                + '<p style="font-size: 20px; border: 2px solid #BCB1AE; border-radius: 5px; margin-top: 70px; margin-right: 70px; margin-bottom: 10px; margin-left: 70px; padding: 30px; overflow: hidden;"><b>' 
-                + '<img src="' + posts[post]["profile_picture"] + '" class="pp"><br/>'
-                + '<span style="color: #623700; text-decoration-color: #623700; text-decoration: underline;" id="lepseudoenelsuroestedeespana">' 
-                + posts[post]["pseudo"] + '</span></b>'
-                + "<br /><br />"
-                + posts[post]["content"]
-                + "<br /><br />❤️"
+            '<a href="https://shitter.ch/post/'
+            + posts[post]["id"]
+            + '">'
+            + '<p width="560px" style="font-size: 20px; border: 2px solid #BCB1AE; border-radius: 5px; margin-top: 70px; margin-right: 70px; margin-bottom: 10px; margin-left: 70px; padding: 30px; overflow: hidden;"><b>'
+            + '<img src="'
+            + posts[post]["profile_picture"]
+            + '" class="pp"><br/>'
+            + '<span style="color: #623700; text-decoration-color: #623700; text-decoration: underline;" id="lepseudoenelsuroestedeespana">'
+            + posts[post]["pseudo"]
+            + "</span></b>"
+            + '<br /><br /></a>Replying to <u>@<a style="color: blue;" target="_blank" href="https://shitter.ch/post/' 
+            + result[0]["id"]
+            + '">'
+            + result[0]["pseudo"] 
+            + "</a></u><br/><br/>" + '<a href="https://shitter.ch/post/'
+            + posts[post]["id"]
+            + '"> '
+            + final_content
+            + "<br /><br />❤️"
+            + str(posts[post]["likes"])
+            + "<br /><p style='font-size: 12; font-color: grey;'> <span id='postdate' style='font-size: 8'>"
+            + posts[post]["date"]
+            + "</span></a></p></p>"
+            )    
+        else:
+            try:
+
+                postscode += (
+                '<a href="https://shitter.ch/post/' + posts[post]["id"] + '/" >'
+                + '<p width="560px" style="font-size: 20px; border: 2px solid #BCB1AE; border-radius: 5px; margin-top: 70px; margin-right: 70px; margin-bottom: 10px; margin-left: 70px; padding: 30px; overflow: hidden;"><b>'
+                + '<img src="'
+                + posts[post]["profile_picture"]
+                + '" class="pp"><br/>'
+                + '<span style="color: #623700; text-decoration-color: #623700; text-decoration: underline;" id="lepseudoenelsuroestedeespana">'
+                + posts[post]["pseudo"]
+                + "</span></b>"
+                +"</i><br/><br/>"
+                + final_content
+                + "</a><br /><br />❤️"
                 + str(posts[post]["likes"])
                 + "<br /><p style='font-size: 12; font-color: grey;'> <span id='postdate' style='font-size: 8'>"
                 + posts[post]["date"]
-                + "</span></a></p></p>"
-            )
-        except KeyError:
-            postscode += (
-                '<a href="https://shitter.ch/post/'
-                + posts[post]["id"]
-                + '"> <li style="font-size: 20px; border: 2px solid #BCB1AE; border-radius: 5px; margin-top: 70px; margin-right: 70px; margin-bottom: 10px; margin-left: 70px; padding: 30px; overflow: hidden;"><b>'
-                + '<span style="color: #623700; text-decoration-color: #623700; text-decoration: underline;">' + posts[post]["pseudo"] + '</span></b>'
-                + "<br /><br />"
-                + posts[post]["content"]
-                + "<br /><br />❤️"
-                + str(posts[post]["likes"])
-                + "<br /><p style='font-size: 12; font-color: grey;'> <span id='postdate' style='font-size: 8'>"
-                + posts[post]["date"]
-                + "</span></a></p></li>"
-            )
+                + "</span></p></p>"
+                )
+            except KeyError:
+                postscode += (
+                '<a href="https://shitter.ch/post/' + posts[post]["id"] +
+                '"> <li style="font-size: 20px; border: 2px solid #BCB1AE; border-radius: 5px; margin-top: 70px; margin-right: 70px; margin-bottom: 10px; margin-left: 70px; padding: 30px; overflow: hidden;"><b>'
+                +
+                '<span style="color: #623700; text-decoration-color: #623700; text-decoration: underline;">'
+                + posts[post]["pseudo"] + '</span></b>' + "<br /><br />" +
+                posts[post]["content"] + "<br /><br />❤️" +
+                str(posts[post]["likes"]) +
+                "<br /><p style='font-size: 12; font-color: grey;'> <span id='postdate' style='font-size: 8'>"
+                + posts[post]["date"] + "</span></a></p></li>")
     htmlcode = htmlcode.replace("{{POSTS}}", postscode)
     return htmlcode
 
@@ -68,9 +112,7 @@ def redirect():
 def redirect_to_post(id):
     return (
         '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=\'https://shitter.ch/post/'
-        + id
-        + "'\" /></head><body></body></html>"
-    )
+        + id + "'\" /></head><body></body></html>")
 
 
 @app.route("/404")
@@ -110,27 +152,17 @@ def leaderboard():
     leaderboarddb = {}
     for user in users:
         leaderboarddb[user] = debe[user]
-    sorted_keys = sorted(
-        leaderboarddb.keys(), key=lambda x: leaderboarddb[x], reverse=True
-    )
-    htmlcode += (
-        "<h2><li><b><u>"
-        + sorted_keys[0]
-        + "</u></b> is on the top of the podium with a total of "
-        + str(leaderboarddb[sorted_keys[0]])
-        + " posts !</li></h2>"
-    )
+    sorted_keys = sorted(leaderboarddb.keys(),
+                         key=lambda x: leaderboarddb[x],
+                         reverse=True)
+    htmlcode += ("<h2><li><b><u>" + sorted_keys[0] +
+                 "</u></b> is on the top of the podium with a total of " +
+                 str(leaderboarddb[sorted_keys[0]]) + " posts !</li></h2>")
     for usr in range(1, len(sorted_keys)):
-        htmlcode += (
-            "<li><u>"
-            + sorted_keys[usr]
-            + "</u> : "
-            + str(leaderboarddb[sorted_keys[usr]])
-            + " posts </i>"
-        )
+        htmlcode += ("<li><u>" + sorted_keys[usr] + "</u> : " +
+                     str(leaderboarddb[sorted_keys[usr]]) + " posts </i>")
     htmlcode = htmlcode.replace(
-        "{{CSS}}", "<style>" + open("style.css").read() + "</style>"
-    )
+        "{{CSS}}", "<style>" + open("style.css").read() + "</style>")
     htmlcode += "</body>"
     htmlcode += (
         "<html><footer><p>Created by Platypus Studio and Krayse</p></html></footer>"
@@ -146,9 +178,10 @@ def ips():
 def stylize(text):
 
     text = text.replace(
-        "<script>", "User tried to hack shitter.ch with this code : </b>\\n\\n"
-    )
-    text = text.replace("<img>", "User tried to hack shitter.ch with a weird image")
+        "<script>",
+        "User tried to hack shitter.ch with this code : </b>\\n\\n")
+    text = text.replace("<img>",
+                        "User tried to hack shitter.ch with a weird image")
     text = text.replace("\\n", "<br />")
     text = text.replace("[b]", "<b>")
     text = text.replace("[/b]", "</b>")
@@ -174,8 +207,8 @@ def stylize(text):
     text = text.replace("[img]", '<img width="200px" src="')
     text = text.replace("[/img]", '"></img>')
     text = text.replace(
-        "[yt]", '<iframe width="500" height="300" src="https://youtube.com/embed/'
-    )
+        "[yt]",
+        '<iframe width="500" height="300" src="https://youtube.com/embed/')
     text = text.replace(
         "[/yt]",
         '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>',
@@ -226,7 +259,6 @@ def add_post():
             pass
         else:
             break
-    print("test 1 passed")
     canPost = True
     blacklist = open("blacklist.txt").read()
     blacklist = blacklist.splitlines()
@@ -236,43 +268,58 @@ def add_post():
         else:
             pass
     if canPost:
-        print("text 3 passed")
-        db.insert(
-            {
-                "pseudo": author,
-                "content": stylize(request.form["content"]),
-                "date": datetime.today().strftime("%Y/%m/%d %H:%M"),
-                "likes": 0,
-                "profile_picture": "https://api.dicebear.com/6.x/thumbs/png?seed=" + author,
-                "id": str(id),
-            }
-        )
+        db.insert({
+            "pseudo":
+            author,
+            "content":
+            stylize(request.form["content"]),
+            "date":
+            datetime.today().strftime("%Y/%m/%d %H:%M"),
+            "likes":
+            0,
+            "profile_picture":
+            "https://api.dicebear.com/6.x/thumbs/png?seed=" + author, 
+            "isReply": False,
+            "id":
+            str(id),
+        })
     else:
         pass
     return redirect()
 
 
 @app.route("/post/<id>")
-def post_detail(id):
+def postdetail(id):
+    print("test 1 passed")
     html_code = open("postdetail.html").read()
     Post = Query()
     result = db.search(Post.id == id)
 
-    if result:
-        pseudo = result[0]["pseudo"]
-        content = result[0]["content"]
-        print(f"Pseudo: {pseudo}\nContent: {content}")
-    else:
-        print("Aucun post avec cet ID n'a été trouvé.")
+    pseudo = result[0]["pseudo"]
+    content = result[0]["content"]
 
+    post_content = content
+    final_content = ""
+    count = 0
+    for char in post_content:
+        final_content += char
+        count += 1
+        if count % 68 == 0:
+            final_content += ""
+    
     html_code = html_code.replace("{postid}", id)
     html_code = html_code.replace("{author}", pseudo)
-    html_code = html_code.replace("{content}", content)
+    html_code = html_code.replace("{content}", final_content)
     html_code = html_code.replace("{link}", id)
     html_code = html_code.replace("{likes}", str(result[0]["likes"]))
-    html_code = html_code.replace("{profile_picture}", '<img src="' + str(result[0]["profile_picture"]) + '" class="pp"')
+    html_code = html_code.replace(
+        "{profile_picture}",
+        '<img src="' + str(result[0]["profile_picture"]) + '" class="pp"')
     print(html_code)
     return html_code
+
+
+
 
 @app.route("/replypage/<id>")
 def replypage(id):
@@ -280,9 +327,10 @@ def replypage(id):
     Post = Query()
     result = db.search(Post.id == id)
 
-    html_code = html_code.replace("{canard}", result[0]["pseudo"])
-    html_code = html_code.replace("{postid}", id)
+    html_code = html_code.replace("{USER}", result[0]["pseudo"])
+    html_code = html_code.replace("{id}", id)
     return html_code
+
 
 @app.route("/like/<id>")
 def like(id):
@@ -295,6 +343,70 @@ def like(id):
     return html_code"""
     return redirect_to_post(id)
 
+@app.route("/reply/<repliedid>", methods=["POST"])
+def reply(repliedid):
+    canPost = False
+    author = request.form["pseudo"]
+    if author == "":
+        author = "Anonymous"
+    else:
+        pass
+    while True:
+        id = random.randint(1, 99999999)
+        if len(str(id)) == 1:
+            id = "0000000" + str(id)
+        if len(str(id)) == 2:
+            id = "000000" + str(id)
+        if len(str(id)) == 3:
+            id = "00000" + str(id)
+        if len(str(id)) == 4:
+            id = "0000" + str(id)
+        if len(str(id)) == 5:
+            id = "000" + str(id)
+        if len(str(id)) == 6:
+            id = "00" + str(id)
+        if len(str(id)) == 7:
+            id = "00" + str(id)
+        else:
+            id = id
+            pass
+        if str(id) in open("database.json").read():
+            pass
+        else:
+            break
+    canPost = True
+    blacklist = open("blacklist.txt").read()
+    blacklist = blacklist.splitlines()
+    for word in blacklist:
+        if word in request.form["content"].lower():
+            canPost = False
+        else:
+            pass
+    if canPost:
+        repliedobject = Query()
+        result = db.search(repliedobject.id == repliedid)
+        usertoreply = result[0]["pseudo"]
+        
+        db.insert({
+            "pseudo":
+            author,
+            "content":
+            stylize(request.form["content"]),
+            "date":
+            datetime.today().strftime("%Y/%m/%d %H:%M"),
+            "likes":
+            0,
+            "profile_picture":
+            "https://api.dicebear.com/6.x/thumbs/png?seed=" + author,
+            "isReply": True,
+            "repliedID": result[0]["id"],
+            "id":
+            str(id),
+        })
+    else:
+        pass
+    return redirect()
+    
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")
