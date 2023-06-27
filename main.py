@@ -56,11 +56,11 @@ def return_website():
             + '<span style="color: #623700; text-decoration-color: #623700; text-decoration: underline;" id="lepseudoenelsuroestedeespana">'
             + posts[post]["pseudo"]
             + "</span></b>"
-            + '<br /><br /></a>Replying to <u>@<a style="color: blue;" target="_blank" href="https://shitter.ch/post/' 
+            + '<br /><br /></a>Replying to @<a style="color: blue; text-decoration-color: blue; text-decoration: underline;" target="_blank" href="https://shitter.ch/post/' 
             + result[0]["id"]
             + '">'
             + result[0]["pseudo"] 
-            + "</a></u><br/><br/>" + '<a href="https://shitter.ch/post/'
+            + "</a><br/><br/>" + '<a class="postlink" href="https://shitter.ch/post/'
             + posts[post]["id"]
             + '"> '
             + final_content
@@ -74,7 +74,7 @@ def return_website():
             try:
 
                 postscode += (
-                '<a href="https://shitter.ch/post/' + posts[post]["id"] + '/" >'
+                '<a href="https://shitter.ch/post/' + posts[post]["id"] + '" >'
                 + '<p width="560px" style="font-size: 20px; border: 2px solid #BCB1AE; border-radius: 5px; margin-top: 70px; margin-right: 70px; margin-bottom: 10px; margin-left: 70px; padding: 30px; overflow: hidden;"><b>'
                 + '<img src="'
                 + posts[post]["profile_picture"]

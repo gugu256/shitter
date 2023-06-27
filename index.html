@@ -305,6 +305,12 @@ button:not(:disabled):active {
 
 nav {
     position: fixed;
+
+
+}
+
+.postlink:hover {
+    color: blue;
 }
 
    </style>
@@ -356,16 +362,17 @@ nav {
 
  <script>
     const switchThemeBtn = document.querySelector('.darkmode')
+    let cloche = new Audio('https://lasonotheque.org/UPLOAD/mp3/0292.mp3');
       let toggleTheme = 0
       
 
-      
       switchThemeBtn.addEventListener('click', () => {
         console.log(toggleTheme)
         if(toggleTheme === 0) {
           document.documentElement.style.setProperty('--background', '#04070C');
           document.documentElement.style.setProperty('--formbox', 'white');
           document.documentElement.style.setProperty('--colortext', '#5FFC02');
+          cloche.play();
          
           toggleTheme++;
         } else {
@@ -374,8 +381,11 @@ nav {
           document.documentElement.style.setProperty('--colortext', 'dark')
           document.body.style.backgroundImage = "url('')";
           toggleTheme--;
+          cloche.play();
         }
       })
+
+   
 
 
     </script>
