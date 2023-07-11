@@ -59,8 +59,9 @@ header {
 }
   
 footer {
-    background-color: lightgray;
+    /*background-color: lightgray;*/
     width: 670px;
+    
 }
   
 textarea {
@@ -340,6 +341,7 @@ nav {
   
 <center>
 <hr />
+    <h1>Shitter.ch</h1>
     <div id="formbox" style="
   width: 700px;
   border: 3px dashed;
@@ -362,7 +364,6 @@ nav {
 
  <script>
     const switchThemeBtn = document.querySelector('.darkmode')
-    let cloche = new Audio('https://lasonotheque.org/UPLOAD/mp3/0292.mp3');
       let toggleTheme = 0
       
 
@@ -372,7 +373,6 @@ nav {
           document.documentElement.style.setProperty('--background', '#04070C');
           document.documentElement.style.setProperty('--formbox', 'white');
           document.documentElement.style.setProperty('--colortext', '#5FFC02');
-          cloche.play();
          
           toggleTheme++;
         } else {
@@ -381,7 +381,6 @@ nav {
           document.documentElement.style.setProperty('--colortext', 'dark')
           document.body.style.backgroundImage = "url('')";
           toggleTheme--;
-          cloche.play();
         }
       })
 
