@@ -315,7 +315,7 @@ def postdetail(id):
     html_code = html_code.replace(
         "{profile_picture}",
         '<img src="' + str(result[0]["profile_picture"]) + '" class="pp"')
-    print(html_code)
+    #print(html_code)
     return html_code
 
 
