@@ -336,12 +336,25 @@ button:not(:disabled):active {
 <p><button id="buttonPost" onClick="location.href='/like/{postid}'">❤️<span id="likestext">{likes}</span></button>
  <!-- The text field-->
 <input readonly='readonly' value="https://shitter.ch/post/{postid}" id="myInput">
-
-<!-- The button used to copy the text -->
 <button onclick="copyToClipBoard()">📎</button>
 <button onClick="location.href='/replypage/{postid}'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-reply-fill" viewBox="0 0 16 16">
   <path d="M5.921 11.9 1.353 8.62a.719.719 0 0 1 0-1.238L5.921 4.1A.716.716 0 0 1 7 4.719V6c1.5 0 6 0 7 8-2.5-4.5-7-4-7-4v1.281c0 .56-.606.898-1.079.62z"/>
 </svg></button>
+<!-- The button used to copy the text -->
+<hr />
+<br /><h2>Comments</h2>
+<form action="/comment/{postid}" method="post">
+    <br /><br />
+    <textarea name="content" placeholder="Comment" rows="1" cols="75"></textarea>
+
+    <input type="text" name="pseudo" placeholder="Pseudo">
+    <input id="buttonPost" type="submit" value="POST">
+  </form>
+
+<div id="comments">
+{COMMENTS}
+</div>
+
 <script>
     function copyToClipBoard() {
 

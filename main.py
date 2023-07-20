@@ -282,6 +282,7 @@ def add_post():
             "isReply": False,
             "id":
             str(id),
+            "comments": [],
         })
     else:
         pass
@@ -315,7 +316,13 @@ def postdetail(id):
     html_code = html_code.replace(
         "{profile_picture}",
         '<img src="' + str(result[0]["profile_picture"]) + '" class="pp"')
+    commentsvar = ""
+    for i in range(0, len(result[0]["comments"]), 2):
+        pseudo = result[0]["comments"][i]
+        text = result[0]["comments"][i + 1]
+        commentsvar += "<br /><h3>"+pseudo+" : "+text
     #print(html_code)
+    html_code = html_code.replace("{COMMENTS}", commentsvar)
     return html_code
 
 
@@ -342,6 +349,17 @@ def like(id):
     """html_code = post_detail(id)
     return html_code"""
     return redirect_to_post(id)
+
+@app.route("/comment/<commentedID>", methods=["POST"])
+def comment(commentedID):
+    print("test 69 passed")
+    commentedObject = Query()
+    result = db.search(commentedObject.id == commentedID)
+    db.update({"comments": result[0]["comments"] + [request.form["pseudo"], request.form["content"]]})
+
+    return redirect_to_post(commentedID)
+
+    
 
 @app.route("/reply/<repliedid>", methods=["POST"])
 def reply(repliedid):
