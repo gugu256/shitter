@@ -424,7 +424,11 @@ def reply(repliedid):
     else:
         pass
     return redirect()
-    
+
+@app.route("/user/<pseudo>", methods=["GET"])
+def userpage(pseudo):
+    pass
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")
