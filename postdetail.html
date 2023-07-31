@@ -342,10 +342,10 @@ button:not(:disabled):active {
 </svg></button>
 <!-- The button used to copy the text -->
 <hr />
-<br /><h2>Comments</h2>
+<br /><h2>Comments ({commentsnbr})</h2>
 <form action="/comment/{postid}" method="post">
     <br /><br />
-    <textarea name="content" placeholder="Comment" rows="1" cols="75"></textarea>
+    <input name="content" placeholder="Comment" type=text size=50></textarea>
 
     <input type="text" name="pseudo" placeholder="Pseudo">
     <input id="buttonPost" type="submit" value="POST">
@@ -371,3 +371,29 @@ button:not(:disabled):active {
     
 </body>
 </html>
+ <script>
+    const switchThemeBtn = document.querySelector('.darkmode')
+      let toggleTheme = 0
+      
+
+      switchThemeBtn.addEventListener('click', () => {
+        console.log(toggleTheme)
+        if(toggleTheme === 0) {
+          document.documentElement.style.setProperty('--background', '#04070C');
+          document.documentElement.style.setProperty('--formbox', 'white');
+          document.documentElement.style.setProperty('--colortext', '#5FFC02');
+         
+          toggleTheme++;
+        } else {
+          document.documentElement.style.setProperty('--background', 'white');
+          document.documentElement.style.setProperty('--formbox', 'dark')
+          document.documentElement.style.setProperty('--colortext', 'dark')
+          document.body.style.backgroundImage = "url('')";
+          toggleTheme--;
+        }
+      })
+
+   
+
+
+    </script>

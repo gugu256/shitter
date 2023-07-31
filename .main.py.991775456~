@@ -317,18 +317,15 @@ def postdetail(id):
         "{profile_picture}",
         '<img src="' + str(result[0]["profile_picture"]) + '" class="pp"')
     commentsvar = "<br /><h3>"
-    _commentsnbr = 0
-    for item in result[0]["comments"]:
-        _commentsnbr += 1
-        if isinstance(item, dict):
-            pseudo = item["pseudo"]
-            content = item["content"]
-            print(pseudo, content)
 
-            commentsvar += str(pseudo)+ " : " +str(content) + "<br /><br />"
+    for i in result[0]["comments"]:
+        print(i)
+        pseudo = i["pseudo"]
+        content = result[0]["comments"][i]["content"]
+
+        commentsvar += str(pseudo)+ " : " +str(content) + "<br /><br />"
     commentsvar += "</h3>"
     html_code = html_code.replace("{COMMENTS}", commentsvar)
-    html_code = html_code.replace("{commentsnbr}", str(_commentsnbr))
     return html_code
 
 
@@ -356,7 +353,7 @@ def like(id):
     return html_code"""
     return redirect_to_post(id)
 
-#from flask import redirect
+from flask import redirect
 
 # ...
 
@@ -367,16 +364,8 @@ def add_comment(commentedID):
     result = db.search(commentedObject.id == commentedID)
     if result:
         # Add a new comment to the post with the given ID
-        pseudo = ""
-        content = ""
-        if request.form["pseudo"] == "":
-            pseudo = "Anonymous"
-        else:
-            pseudo = request.form["pseudo"]
-        if request.form["content"] == "":
-            content = "<i>dies from cringe</i>"
-        else:
-            content = request.form["content"]
+        pseudo = request.form["pseudo"]
+        content = request.form["content"]
         
         # Get the existing comments and add the new comment to it
         existing_comments = result[0]["comments"]
@@ -452,7 +441,6 @@ def reply(repliedid):
             "repliedID": result[0]["id"],
             "id":
             str(id),
-            "comments": [],
         })
     else:
         pass

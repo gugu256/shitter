@@ -303,11 +303,28 @@ button:not(:disabled):active {
 #buttonPost2:not(:disabled):active {
   transform: translateY(.125rem);
 }
-
+    
 nav {
-    position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #623700;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+}
 
+/* Si vous voulez centrer le texte des boutons dans la navbar */
+nav button {
+  display: flex;
+  align-items: center;
+}
 
+/* Pour ajuster l'espacement entre les boutons de la navbar */
+nav button {
+  margin: 0 5px;
 }
 
 .postlink:hover {
@@ -320,8 +337,8 @@ nav {
   ">  
 <body>
 <div id='up'></div>
-<nav id="la-navigation">
-<p><button><a  href="https://shitter.ch"><img class="homelogo" src="https://i.redd.it/n0qw1pjak8ya1.png">
+<nav>
+<button><a  href="https://shitter.ch"><img class="homelogo" src="https://i.redd.it/n0qw1pjak8ya1.png">
 <style>
    .homelogo{
     width: 60px;
@@ -333,8 +350,6 @@ nav {
           <button id="buttonPost" onClick="location.href='/gotomakepost'"   type="button">Post <img src="https://i.redd.it/exv6gqxem8ya1.png" height="20" width="20"></button>
 <button style="margin-left:30%" id="buttonPost" onClick="location.href='/#bottomlikeyourmommaass'">⬇︎</button> 
       <button  class="darkmode"style="margin-left: 40%"><img src="https://i.redd.it/zs6h54xvl8ya1.png" height=20 widht=20></button> 
-  
-    </p>
 </nav>
 </div>
 
