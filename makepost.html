@@ -266,6 +266,7 @@ button:not(:disabled):active {
   transform: translateY(.125rem);
 }
 
+
    </style>
   <div id="site">
   <div style="
@@ -289,9 +290,11 @@ button:not(:disabled):active {
   
     <br>
   <form action="/newpost" method="post">
-    <textarea name="content" placeholder="Your text" rows="10" cols="59"></textarea><br />
+    <textarea name="content" placeholder="Your text" rows="10" cols="59" id="text"></textarea><br />
+      <button class="textformatting" id="[h1]">Title</button><button class="textformatting" id="[i]">Italic</button><button class="textformatting" id="[b]">Bold</button>
       <br /><br />
-    <input type="text" name="pseudo" placeholder="Pseudo">
+    <input type="text" name="pseudo" placeholder="Pseudo"><br /><br />  
+    <label for="checkcertif" id="lab">Certified?</label><input id="cp" type="checkbox" name="checkcertif"">
       <br />
       <br />
     <input id="buttonPost" type="submit" value="POST">
@@ -304,3 +307,44 @@ button:not(:disabled):active {
 </center>
 </body>
 </html>
+<script>
+    function afficherPromptWindow() {
+      document.getElementById("cp").type = "password"
+      document.getElementById("cp").placeholder = "Password"
+      document.getElementById("lab").innerHTML = ""  
+    }
+    var monCheckbox = document.getElementById("cp");
+
+    monCheckbox.addEventListener("change", function() {
+      if (monCheckbox.checked) {
+        afficherPromptWindow();
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+    let textarea = document.getElementById("text");
+    let button = document.getElementById("[h1]");
+
+    button.addEventListener("click", function() {
+        textarea.value = textarea.value + "[h1]Title[/h1]";
+    });
+});
+
+    document.addEventListener("DOMContentLoaded", function() {
+    let textarea = document.getElementById("text");
+    let button = document.getElementById("[i]");
+
+    button.addEventListener("click", function() {
+        textarea.value = textarea.value + "[i]Italic text[/i]";
+    });
+});
+
+    document.addEventListener("DOMContentLoaded", function() {
+    let textarea = document.getElementById("text");
+    let button = document.getElementById("[b]");
+
+    button.addEventListener("click", function() {
+        textarea.value = textarea.value + "[b]Bold text[/b]";
+    });
+});
+  </script>
