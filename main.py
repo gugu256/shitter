@@ -493,5 +493,10 @@ def userpage(pseudo):
     pass  #une app.route vreeeuuument # VREEEEUMENT
 
 
+@app.route("/feed", methods=["GET"])
+def feed():
+    code = open("feed.xml").read()
+    return code
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0")
