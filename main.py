@@ -107,13 +107,6 @@ def redirect_to_post(id):
         '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=\'https://shitter.ch/post/'
         + id + "'\" /></head><body></body></html>")
 
-
-@app.route("/lastpost")
-def lastpost():
-    posts = list(reversed(TinyDB("database.json").all()))
-    return posts[0]
-
-
 @app.route("/gotosignup")
 def gotosignup():
     htmlcode = open("signup.html").read()
@@ -162,10 +155,29 @@ def leaderboard():
     )
     return htmlcode
 
+## API
 
-@app.route("/postsdb")
+@app.route("/api/posts")
 def ips():
     return open("database.json").read()
+
+@app.route("/api/lastpost")
+def lastpost():
+    posts = list(reversed(TinyDB("database.json").all()))
+    return posts[0]
+
+@app.route("/api/recent/<nbr>")
+def recentposts(nbr):
+    posts = list(reversed(TinyDB("database.json").all()))
+    return posts[0:int(nbr)]
+
+@app.route("/api/post/<id>")
+def apipost(id):
+    Post = Query()
+    result = db.search(Post.id == id)
+    return result[0]
+
+## END OF API
 
 
 def stylize(text):
