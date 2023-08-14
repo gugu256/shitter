@@ -108,10 +108,10 @@ def redirect_to_post(id):
         + id + "'\" /></head><body></body></html>")
 
 
-@app.route("/404")
-def error404():
-    htmlcode = open("404.html").read()
-    return htmlcode
+@app.route("/lastpost")
+def lastpost():
+    posts = list(reversed(TinyDB("database.json").all()))
+    return posts[0]
 
 
 @app.route("/gotosignup")
@@ -240,7 +240,7 @@ def add_post():
     h_p.update(password.encode("utf-8"))
     # 94e8f179cb1c7ef390e6d3d2c80d7024660d98fa99d7b7882381964c4917aafa97b990c766deb1a6e685c6a8ef282032de7d3009cab05ac1fe8cdeab4f792935
     wholedb = certifs.all()
-    
+
     if author == "":
         author = "Anonymous"
 
@@ -408,7 +408,7 @@ def add_comment(commentedID):
         if canComment:
             new_comment = {"pseudo": pseudo, "content": stylize(content)}
             existing_comments.append(new_comment)
-    
+
             # Update the specific post with the updated comments list
             db.update({"comments": existing_comments},
                       commentedObject.id == commentedID)
@@ -497,6 +497,7 @@ def userpage(pseudo):
 def feed():
     code = open("feed.xml").read()
     return code
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")
