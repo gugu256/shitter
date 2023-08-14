@@ -22,4 +22,4 @@ Shitter.ch has a basic read-only API with 4 endpoints:
 - `shitter.ch/api/recent/5`  returns the last 5 posts in JSON format (you are free to change the number if you want to get more or less posts)
 - `shitter.ch/api/post/<id>` returns the JSON format of a specific post using it's id.
 
-Feel free to experimet=nt with it !
+Feel free to experiment with it !
