@@ -5,7 +5,6 @@ from datetime import datetime
 from tinydb import TinyDB, Query
 from replit import db as debe
 import hashlib
-import time
 
 db = TinyDB("database.json")
 
@@ -97,13 +96,6 @@ def return_website():
 
 def redirect():
     return '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=\'https://shitter.ch/\'" /></head><body></body></html>'
-
-def redirect_to_wrongpassword():
-    return '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=\'https://shitter.ch/wrongpassword\'" /></head><body></body></html>'
-
-@app.route("/wrongpassword")
-def wrong_password():
-    return open("wrongpassword.html").read()
 
 
 def redirect_to_post(id):
@@ -245,6 +237,7 @@ def stylize(text):
     text = text.replace("</p>", "")
     return text
 
+
 @app.route("/newpost/", methods=["POST"])
 def add_post():
     #print(request.form["checkcertif"])
@@ -268,8 +261,7 @@ def add_post():
             author += " ☑️"
             certified = True
         else:
-            time.sleep(5)
-            return redirect_to_wrongpassword()
+            pass
     while True:
         id = random.randint(1, 99999999)
         if len(str(id)) == 1:
