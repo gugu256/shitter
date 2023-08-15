@@ -173,6 +173,10 @@ def apipost(id):
     result = db.search(Post.id == id)
     return result[0]
 
+@app.route("/api")
+def api():
+    return open("api.html").read()
+
 ## END OF API
 
 @app.route("/__repl")

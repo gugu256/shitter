@@ -343,6 +343,16 @@ nav button {
    .homelogo{
     width: 60px;
   }
+  code {
+      color: white;
+      text-align: left;
+      background-color: #444;
+      font-family: Consolas, 'Courier New', monospace;
+      border-radius: 4px;
+  }
+  #endpoints {
+      text-align: left;
+  }
 </style>
 </img></a></button>
 
@@ -360,7 +370,18 @@ nav button {
   color: var(--formbox);
   border-radius: 10px;
   ">
-        <h3 color="red">Wrong password !</h3>
+        <h3>You found it, you found our 'secret' api</h3>
+        <p>It basically has 4 endpoints you can explore.</p>
+        <div id="endpoints">
+        <ul>
+            <li><u>GET</u> <code>shitter.ch/api/posts</code>      returns the whole JSON database of all the posts</li><br>
+            <li><u>GET</u> <code>shitter.ch/api/lastpost</code>   returns the JSON of the last post</li><br>
+            <li><u>GET</u> <code>shitter.ch/api/recent/5</code>   returns the last 5 posts in JSON format (you are free to change the number if you want to get more or less posts)</li><br>
+            <li><u>GET</u> <code>shitter.ch/api/post/id</code>  returns the JSON format of a specific post using it's id.</li><br>
+        </ul>
+        </div>
+        
+        <p>Feel free to use this API as much as you want!</p>
   </div>
   <br>
 
