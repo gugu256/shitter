@@ -293,6 +293,11 @@ def add_post():
             canPost = False
         else:
             pass
+    for word in blacklist:
+        if word in author:
+            canPost = False
+        else:
+            pass
     if "☑️" in author and certified == False:
         canPost = False
     if canPost:
