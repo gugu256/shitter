@@ -12,3 +12,10 @@ kike
 <script>
 onerror
 <meta
+script
+window.location
+onload
+div
+>
+<
+location.href

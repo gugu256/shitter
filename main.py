@@ -5,6 +5,7 @@ from datetime import datetime
 from tinydb import TinyDB, Query
 from replit import db as debe
 import hashlib
+import time
 
 db = TinyDB("database.json")
 
@@ -18,10 +19,6 @@ users_table = users.table("users")
 
 @app.route("/", methods=["GET"])
 def home():
-    if request.remote_addr in open("ipdb").read():
-        pass
-    else:
-        open("ipdb", "a").write(str(request.remote_addr) + "\n")
     return return_website()
 
 
@@ -101,6 +98,13 @@ def return_website():
 def redirect():
     return '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=\'https://shitter.ch/\'" /></head><body></body></html>'
 
+def redirect_to_wrongpassword():
+    return '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=\'https://shitter.ch/wrongpassword\'" /></head><body></body></html>'
+
+@app.route("/wrongpassword")
+def wrong_password():
+    return open("wrongpassword.html").read()
+
 
 def redirect_to_post(id):
     return (
@@ -179,6 +183,10 @@ def apipost(id):
 
 ## END OF API
 
+@app.route("/__repl")
+def replroute():
+    return "lmao u thought you could access this repl?"
+
 
 def stylize(text):
 
@@ -237,7 +245,6 @@ def stylize(text):
     text = text.replace("</p>", "")
     return text
 
-
 @app.route("/newpost/", methods=["POST"])
 def add_post():
     #print(request.form["checkcertif"])
@@ -261,7 +268,8 @@ def add_post():
             author += " ☑️"
             certified = True
         else:
-            pass
+            time.sleep(5)
+            return redirect_to_wrongpassword()
     while True:
         id = random.randint(1, 99999999)
         if len(str(id)) == 1:

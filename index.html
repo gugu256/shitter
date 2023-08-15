@@ -399,8 +399,18 @@ nav button {
         }
       })
 
-   
+   switchThemeBtn.addEventListener("dblclick", quoicoubeh)
+    function quoicoubeh() {
+  const colors = ["#FF5733", "#33FFA8", "#339CFF", "#FF33E9", "#33FF51", "#FFEA33"];
 
+  let number = 0;
+
+  setInterval(() => {
+    document.body.style.backgroundColor = colors[number];
+
+    number = (number + 1) % colors.length;
+  }, 100);
+}
 
     </script>
 </body>
