@@ -306,7 +306,7 @@ def add_post():
             canPost = False
         else:
             pass
-    if "\"" and "[yt]" in request.post["content"] or "\"" and "[yt]" in author:
+    if "\"" and "[yt]" in request.form["content"] or "\"" and "[yt]" in author:
         canPost = False
     if "☑️" in author and certified == False:
         canPost = False
