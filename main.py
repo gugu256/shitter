@@ -18,6 +18,7 @@ users_table = users.table("users")
 
 @app.route("/", methods=["GET"])
 def home():
+    backup()
     return return_website()
 
 
@@ -179,10 +180,13 @@ def api():
 
 ## END OF API
 
-@app.route("/__repl")
-def replroute():
-    return "lmao u thought you could access this repl?"
-
+def backup():
+    dblen = len(open("database.json", "r").read())
+    bklen = len(open("backup.json", "r").read())
+    if dblen > bklen:
+        print("Did backup")
+        open("backup.json", "w").write(open("database.json", "r").read())
+    
 
 def stylize(text):
 
@@ -326,6 +330,8 @@ def add_post():
         })
     else:
         pass
+    
+    backup()
     return redirect()
 
 
@@ -478,7 +484,7 @@ def reply(repliedid):
     blacklist = open("blacklist.txt").read()
     blacklist = blacklist.splitlines()
     for word in blacklist:
-        if word in request.form["content"].lower():
+        if word in request.form["content"].lower() or word in author:
             canPost = False
         else:
             pass
@@ -508,6 +514,8 @@ def reply(repliedid):
         })
     else:
         pass
+    
+    backup()
     return redirect()
 
 
