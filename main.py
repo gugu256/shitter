@@ -313,6 +313,8 @@ def add_post():
         canPost = False
     if "☑️" in author and certified == False:
         canPost = False
+    if len(request.form["content"]) > 250:
+        canPost = False
     if canPost:
         db.insert({
             "pseudo":
@@ -429,16 +431,23 @@ def add_comment(commentedID):
 
         # Get the existing comments and add the new comment to it
         existing_comments = result[0]["comments"]
+        
+        new_comment = {"pseudo": pseudo, "content": stylize(content)}
         canComment = True
         blacklist = open("blacklist.txt").read()
         blacklist = blacklist.splitlines()
         for word in blacklist:
-            if word in content.lower():
+            if word in content.lower() or word in pseudo.lower():
                 canComment = False
             else:
                 pass
+
+        
+        if new_comment in existing_comments:
+            canComment = False
+            print("Comment already exists")
+                
         if canComment:
-            new_comment = {"pseudo": pseudo, "content": stylize(content)}
             existing_comments.append(new_comment)
 
             # Update the specific post with the updated comments list
