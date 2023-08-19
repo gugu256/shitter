@@ -27,70 +27,73 @@ def return_website():
     postscode = ""
     htmlcode = open("index.html").read()
     for post in range(0, len(posts)):
-        _commentsnbr = 0
-        for item in posts[post]["comments"]:
-            _commentsnbr += 1
-        post_content = posts[post]["content"]
-        final_content = ""
-        count = 0
-        for char in post_content:
-            final_content += char
-            count += 1
-            if count % 42 == 0:
-                final_content += ""
-
-        if len(final_content) >= 336:
-            final_content = final_content[0:335] + "... <u>READ MORE</u>"
-        else:
-            pass
-
-        #if len(posts[post]["content"]) >
-        if posts[post]["isReply"] is True:
-            Post = Query()
-            result = db.search(Post.id == posts[post]["repliedID"])
-
-            postscode += (
-                '<a href="https://shitter.ch/post/' + posts[post]["id"] +
-                '">' +
-                '<p width="560px" style="font-size: 20px; border: 2px solid #BCB1AE; border-radius: 5px; margin-top: 70px; margin-right: 70px; margin-bottom: 10px; margin-left: 70px; padding: 30px; overflow: hidden;"><b>'
-                + '<img src="' + posts[post]["profile_picture"] +
-                '" class="pp"><br/>' +
-                '<span style="color: #623700; text-decoration-color: #623700; text-decoration: underline;" id="lepseudoenelsuroestedeespana">'
-                + posts[post]["pseudo"] + "</span></b>" +
-                '<br /><br /></a>Replying to @<a style="color: blue; text-decoration-color: blue; text-decoration: underline;" target="_blank" href="https://shitter.ch/post/'
-                + result[0]["id"] + '">' + result[0]["pseudo"] +
-                "</a><br/><br/>" +
-                '<a class="postlink" href="https://shitter.ch/post/' +
-                posts[post]["id"] + '"> ' + final_content + "<br /><br />❤️" +
-                str(posts[post]["likes"]) + " 💬" + str(_commentsnbr) +
-                "<br /><p style='font-size: 12; font-color: grey;'> <span id='postdate' style='font-size: 8'>"
-                + posts[post]["date"] + "</span></a></p></p>")
-        else:
-            try:
-
+        try:
+            _commentsnbr = 0
+            for item in posts[post]["comments"]:
+                _commentsnbr += 1
+            post_content = posts[post]["content"]
+            final_content = ""
+            count = 0
+            for char in post_content:
+                final_content += char
+                count += 1
+                if count % 42 == 0:
+                    final_content += ""
+    
+            if len(final_content) >= 336:
+                final_content = final_content[0:335] + "... <u>READ MORE</u>"
+            else:
+                pass
+    
+            #if len(posts[post]["content"]) >
+            if posts[post]["isReply"] is True:
+                Post = Query()
+                result = db.search(Post.id == posts[post]["repliedID"])
+    
                 postscode += (
                     '<a href="https://shitter.ch/post/' + posts[post]["id"] +
-                    '" >' +
+                    '">' +
                     '<p width="560px" style="font-size: 20px; border: 2px solid #BCB1AE; border-radius: 5px; margin-top: 70px; margin-right: 70px; margin-bottom: 10px; margin-left: 70px; padding: 30px; overflow: hidden;"><b>'
                     + '<img src="' + posts[post]["profile_picture"] +
                     '" class="pp"><br/>' +
                     '<span style="color: #623700; text-decoration-color: #623700; text-decoration: underline;" id="lepseudoenelsuroestedeespana">'
                     + posts[post]["pseudo"] + "</span></b>" +
-                    "</i><br/><br/>" + final_content + "</a><br /><br />❤️" +
+                    '<br /><br /></a>Replying to @<a style="color: blue; text-decoration-color: blue; text-decoration: underline;" target="_blank" href="https://shitter.ch/post/'
+                    + result[0]["id"] + '">' + result[0]["pseudo"] +
+                    "</a><br/><br/>" +
+                    '<a class="postlink" href="https://shitter.ch/post/' +
+                    posts[post]["id"] + '"> ' + final_content + "<br /><br />❤️" +
                     str(posts[post]["likes"]) + " 💬" + str(_commentsnbr) +
                     "<br /><p style='font-size: 12; font-color: grey;'> <span id='postdate' style='font-size: 8'>"
-                    + posts[post]["date"] + "</span></p></p>")
-            except KeyError:
-                postscode += (
-                    '<a href="https://shitter.ch/post/' + posts[post]["id"] +
-                    '"> <li style="font-size: 20px; border: 2px solid #BCB1AE; border-radius: 5px; margin-top: 70px; margin-right: 70px; margin-bottom: 10px; margin-left: 70px; padding: 30px; overflow: hidden;"><b>'
-                    +
-                    '<span style="color: #623700; text-decoration-color: #623700; text-decoration: underline;">'
-                    + posts[post]["pseudo"] + '</span></b>' + "<br /><br />" +
-                    posts[post]["content"] + "<br /><br />❤️" +
-                    str(posts[post]["likes"]) +
-                    "<br /><p style='font-size: 12; font-color: grey;'> <span id='postdate' style='font-size: 8'>"
-                    + posts[post]["date"] + "</span></a></p></li>")
+                    + posts[post]["date"] + "</span></a></p></p>")
+            else:
+                try:
+    
+                    postscode += (
+                        '<a href="https://shitter.ch/post/' + posts[post]["id"] +
+                        '" >' +
+                        '<p width="560px" style="font-size: 20px; border: 2px solid #BCB1AE; border-radius: 5px; margin-top: 70px; margin-right: 70px; margin-bottom: 10px; margin-left: 70px; padding: 30px; overflow: hidden;"><b>'
+                        + '<img src="' + posts[post]["profile_picture"] +
+                        '" class="pp"><br/>' +
+                        '<span style="color: #623700; text-decoration-color: #623700; text-decoration: underline;" id="lepseudoenelsuroestedeespana">'
+                        + posts[post]["pseudo"] + "</span></b>" +
+                        "</i><br/><br/>" + final_content + "</a><br /><br />❤️" +
+                        str(posts[post]["likes"]) + " 💬" + str(_commentsnbr) +
+                        "<br /><p style='font-size: 12; font-color: grey;'> <span id='postdate' style='font-size: 8'>"
+                        + posts[post]["date"] + "</span></p></p>")
+                except KeyError:
+                    postscode += (
+                        '<a href="https://shitter.ch/post/' + posts[post]["id"] +
+                        '"> <li style="font-size: 20px; border: 2px solid #BCB1AE; border-radius: 5px; margin-top: 70px; margin-right: 70px; margin-bottom: 10px; margin-left: 70px; padding: 30px; overflow: hidden;"><b>'
+                        +
+                        '<span style="color: #623700; text-decoration-color: #623700; text-decoration: underline;">'
+                        + posts[post]["pseudo"] + '</span></b>' + "<br /><br />" +
+                        posts[post]["content"] + "<br /><br />❤️" +
+                        str(posts[post]["likes"]) +
+                        "<br /><p style='font-size: 12; font-color: grey;'> <span id='postdate' style='font-size: 8'>"
+                        + posts[post]["date"] + "</span></a></p></li>")
+        except:
+            print("A post couldn't be loaded")
     htmlcode = htmlcode.replace("{{POSTS}}", postscode)
     return htmlcode
 
