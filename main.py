@@ -6,7 +6,7 @@ from tinydb import TinyDB, Query
 from replit import db as debe
 import hashlib
 
-db = TinyDB("database.json")
+db = TinyDB("backup.json")
 
 app = Flask("Shitter")
 
@@ -23,7 +23,7 @@ def home():
 
 
 def return_website():
-    posts = list(reversed(TinyDB("database.json").all()))
+    posts = list(reversed(TinyDB("backup.json").all()))
     postscode = ""
     htmlcode = open("index.html").read()
     for post in range(0, len(posts)):
@@ -184,12 +184,21 @@ def api():
 ## END OF API
 
 def backup():
-    dblen = len(open("database.json", "r").read())
-    bklen = len(open("backup.json", "r").read())
-    if dblen > bklen:
-        print("Did backup")
-        open("backup.json", "w").write(open("database.json", "r").read())
+    db = open("database.json", "r").read()
+    bk = open("backup.json", "r").read()      
+    dblen = len(db)
+    bklen = len(bk)
     
+    if db.count('"_default":') > 1 and bk.count('"_default":') == 1:
+        print("database had to be reverted")
+        open("database.json", "w").write(bk)
+    
+    elif (bklen/dblen*100) > 50:
+        print("Did backup")
+        open("backup.json", "w").write(db)
+    else:
+        print("database was reverted due to suspicious length growth")
+        open("database.json", "w").write(bk)
 
 def stylize(text):
 

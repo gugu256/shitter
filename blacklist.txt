@@ -20,3 +20,6 @@ div
 <
 onmousemove
 location.href
+style=
+style =
+_default
