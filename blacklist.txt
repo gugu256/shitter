@@ -23,3 +23,6 @@ location.href
 style=
 style =
 _default
+addEventListener
+new Audio
+onmousehover

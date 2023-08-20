@@ -212,6 +212,11 @@ def error429():
 
 ## END OF ERROR HANDLERS
 
+@app.route("/status")
+def status():
+    return '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=\'https://status.shttr.repl.co/\'" /></head><body></body></html>'
+
+
 def backup():
     Db = open("database.json", "r").read()
     Bk = open("backup.json", "r").read()      
