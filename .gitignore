@@ -1,0 +1,11 @@
+.config
+.build
+.cache
+.upm
+.tmp
+.git
+**/venv
+**/__pycache__
+poetry.lock
+.replit
+pyproject.toml

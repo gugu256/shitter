@@ -218,7 +218,7 @@ def status():
 
 @app.route("/github")
 def github():
-    return '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=\'github.com/gugu256/shitter\'" /></head><body></body></html>'
+    return '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=\'https://github.com/gugu256/shitter\'" /></head><body></body></html>'
 
 
 def backup():

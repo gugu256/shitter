@@ -4,3 +4,5 @@
 .upm
 .tmp
 .git
+**/venv
+**/__pycache
