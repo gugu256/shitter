@@ -190,11 +190,11 @@ def page_not_found(error):
     return open("errorpage.html").read().replace("{{ERROR_CODE}}", "404"), 404
 
 @app.errorhandler(500)
-def page_not_found(error):
+def internal_server_error(error):
     return open("errorpage.html").read().replace("{{ERROR_CODE}}", "500"), 500
 
 @app.errorhandler(429)
-def page_not_found(error):
+def too_many__requests(error):
     return open("errorpage.html").read().replace("{{ERROR_CODE}}", "429"), 429
 
 
@@ -215,6 +215,10 @@ def error429():
 @app.route("/status")
 def status():
     return '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=\'https://status.shttr.repl.co/\'" /></head><body></body></html>'
+
+@app.route("/github")
+def github():
+    return '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=\'github.com/gugu256/shitter\'" /></head><body></body></html>'
 
 
 def backup():
@@ -398,7 +402,6 @@ def postdetail(id):
     html_code = html_code.replace("{postid}", id)
     html_code = html_code.replace("{author}", pseudo)
     html_code = html_code.replace("{content}", final_content)
-    html_code = html_code.replace("{link}", id)
     html_code = html_code.replace("{likes}", str(result[0]["likes"]))
     html_code = html_code.replace(
         "{profile_picture}",
@@ -417,18 +420,6 @@ def postdetail(id):
     html_code = html_code.replace("{COMMENTS}", commentsvar)
     html_code = html_code.replace("{commentsnbr}", str(_commentsnbr))
     return html_code
-
-
-@app.route("/replypage/<id>")
-def replypage(id):
-    html_code = open("replypage.html").read()
-    Post = Query()
-    result = db.search(Post.id == id)
-
-    html_code = html_code.replace("{USER}", result[0]["pseudo"])
-    html_code = html_code.replace("{id}", id)
-    return html_code
-
 
 @app.route("/like/<id>")
 def like(id):
@@ -497,74 +488,7 @@ def add_comment(commentedID):
         return "Post ID not found", 404
 
 
-@app.route("/reply/<repliedid>", methods=["POST"])
-def reply(repliedid):
-    canPost = False
-    author = request.form["pseudo"]
-    if author == "":
-        author = "Anonymous"
-    else:
-        pass
-    while True:
-        id = random.randint(1, 99999999)
-        if len(str(id)) == 1:
-            id = "0000000" + str(id)
-        if len(str(id)) == 2:
-            id = "000000" + str(id)
-        if len(str(id)) == 3:
-            id = "00000" + str(id)
-        if len(str(id)) == 4:
-            id = "0000" + str(id)
-        if len(str(id)) == 5:
-            id = "000" + str(id)
-        if len(str(id)) == 6:
-            id = "00" + str(id)
-        if len(str(id)) == 7:
-            id = "00" + str(id)
-        else:
-            id = id
-            pass
-        if str(id) in open("database.json").read():
-            pass
-        else:
-            break
-    canPost = True
-    blacklist = open("blacklist.txt").read()
-    blacklist = blacklist.splitlines()
-    for word in blacklist:
-        if word in request.form["content"].lower() or word in author:
-            canPost = False
-        else:
-            pass
-    if canPost:
-        repliedobject = Query()
-        result = db.search(repliedobject.id == repliedid)
-        usertoreply = result[0]["pseudo"]
 
-        db.insert({
-            "pseudo":
-            author,
-            "content":
-            stylize(request.form["content"]),
-            "date":
-            datetime.today().strftime("%Y/%m/%d %H:%M"),
-            "likes":
-            0,
-            "profile_picture":
-            "https://api.dicebear.com/6.x/thumbs/png?seed=" + author,
-            "isReply":
-            True,
-            "repliedID":
-            result[0]["id"],
-            "id":
-            str(id),
-            "comments": [],
-        })
-    else:
-        pass
-    
-    backup()
-    return redirect()
 
 
 @app.route("/user/<pseudo>", methods=["GET"])
