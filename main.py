@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, abort
 import random
 import markdown
 from datetime import datetime
@@ -183,22 +183,44 @@ def api():
 
 ## END OF API
 
+## ERROR HANDLERS
+
+@app.errorhandler(404)
+def page_not_found(error):
+    return open("errorpage.html").read().replace("{{ERROR_CODE}}", "404"), 404
+
+@app.errorhandler(500)
+def page_not_found(error):
+    return open("errorpage.html").read().replace("{{ERROR_CODE}}", "500"), 500
+
+@app.errorhandler(429)
+def page_not_found(error):
+    return open("errorpage.html").read().replace("{{ERROR_CODE}}", "429"), 429
+
+
+@app.route('/500')
+def error500():
+    abort(500)
+
+@app.route('/404')
+def error404():
+    abort(404)
+
+@app.route('/429')
+def error429():
+    abort(429)
+
+## END OF ERROR HANDLERS
+
 def backup():
-    db = open("database.json", "r").read()
-    bk = open("backup.json", "r").read()      
-    dblen = len(db)
-    bklen = len(bk)
+    Db = open("database.json", "r").read()
+    Bk = open("backup.json", "r").read()      
+    Dblen = len(Db)
+    Bklen = len(Bk)
     
-    if db.count('"_default":') > 1 and bk.count('"_default":') == 1:
-        print("database had to be reverted")
-        open("database.json", "w").write(bk)
-    
-    elif (bklen/dblen*100) > 50:
+    if Dblen > Bklen:
         print("Did backup")
-        open("backup.json", "w").write(db)
-    else:
-        print("database was reverted due to suspicious length growth")
-        open("database.json", "w").write(bk)
+        open("backup.json", "w").write(Db)
 
 def stylize(text):
 
