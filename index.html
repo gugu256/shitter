@@ -96,7 +96,10 @@ textarea {
     font-family: 'Roboto Mono', monospace;;
     color: var(--colortext);
 }
-
+*::selection{
+  color: white;
+  background-color: #623700;
+}
   
 a:link, a:visited, a:hover, a:active{
 text-decoration: none;
@@ -371,7 +374,7 @@ nav button {
   <br>
 </div> 
  </div><br/>
-<button id="buttonPost" onClick="location.href='#up'">⬆</button><br/><br />
+<button id="upBtn" onClick="location.href='#up'">⬆</button><br/><br />
 <footer>
 <button  id="buttonPost" onClick="location.href='/about'">About</button>
 </footer>
