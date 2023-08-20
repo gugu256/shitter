@@ -6,7 +6,7 @@ from tinydb import TinyDB, Query
 from replit import db as debe
 import hashlib
 
-db = TinyDB("backup.json")
+db = TinyDB("database.json")
 
 app = Flask("Shitter")
 
@@ -23,7 +23,7 @@ def home():
 
 
 def return_website():
-    posts = list(reversed(TinyDB("backup.json").all()))
+    posts = list(reversed(TinyDB("database.json").all()))
     postscode = ""
     htmlcode = open("index.html").read()
     for post in range(0, len(posts)):
