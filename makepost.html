@@ -294,6 +294,7 @@ button:not(:disabled):active {
     <br>
   <form action="/newpost" method="post">
     <textarea name="content" placeholder="Your text" rows="10" cols="59" id="text"></textarea><br />
+   <h1 id="jspcommentlappeler"><span id="numberCtn">0</span>/250</h1> 
       <button type="button" class="textformatting" id="[h1]">Title</button>  <button type="button" class="textformatting" id="[i]">Italic</button>  <button type="button" class="textformatting" id="[b]">Bold</button>
       <br /><br />
     <input type="text" name="pseudo" placeholder="Pseudo"><br /><br />  
@@ -350,4 +351,23 @@ button:not(:disabled):active {
         textarea.value = textarea.value + "[b]Bold text[/b]";
     });
 });
+
+let textBox = document.getElementById('text');
+let numberCtn = document.getElementById('numberCtn');
+let jspcommentlappeler = document.getElementById('jspcommentlappeler');
+textBox.addEventListener("input", function() {
+  var textLength = textBox.value.length;
+  let maxLength = 250;
+  numberCtn.textContent = textLength;
+  if (textLength > 250) {
+    jspcommentlappeler.style.color = "red"
+    numberCtn.style.color = "red"
+    textBox.value = textBox.value.slice(0, maxLength);
+  } else if (textLength <= 250) {
+    jspcommentlappeler.style.color = "black"
+    numberCtn.style.color = "black"
+    textBox.value = textBox.value.slice(0, maxLength);
+  }
+});
+
   </script>
